@@ -1,3 +1,8 @@
+-- External dependencies:
+-- lua-language-server
+-- rust-analyzer
+-- tree-sitter cli
+-- ty (or other python lsp)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.opt.relativenumber = true
@@ -62,9 +67,109 @@ require("lazy").setup({
             "ibhagwan/fzf-lua",
             dependencies = { "nvim-tree/nvim-web-devicons" },
         },
+        {
+            'nvim-treesitter/nvim-treesitter',
+            lazy = false,
+            build = ':TSUpdate',
+            config = function()
+                local filetypes = {
+                    "rust", "python", "bash", "c", "diff", "html", "lua",
+                    "luadoc", "markdown", "markdown_inline", "query", "vim",
+                    "vimdoc",
+                }
+                require("nvim-treesitter").install(filetypes)
+                vim.api.nvim_create_autocmd("FileType", {
+                    pattern = filetypes,
+                    callback = function() vim.treesitter.start() end,
+                })
+            end,
+        },
+        {
+            "nvim-treesitter/nvim-treesitter-textobjects",
+            branch = "main",
+            init = function()
+                -- Disable entire built-in ftplugin mappings to avoid conflicts.
+                -- See https://github.com/neovim/neovim/tree/master/runtime/ftplugin
+                -- for built-in ftplugins.
+                vim.g.no_plugin_maps = true
+
+                -- Or, disable per filetype (add as you like)
+                -- vim.g.no_python_maps = true
+                -- vim.g.no_ruby_maps = true
+                -- vim.g.no_rust_maps = true
+                -- vim.g.no_go_maps = true
+            end,
+            config = function()
+                -- put your config here
+            end,
+        }
     },
     checker = { enabled = false }
 })
+
+-- treesitter objects
+require("nvim-treesitter-textobjects").setup {
+    select = {
+        -- Automatically jump forward to textobj, similar to targets.vim
+        lookahead = true,
+        -- You can choose the select mode (default is charwise 'v')
+        --
+        -- Can also be a function which gets passed a table with the keys
+        -- * query_string: eg '@function.inner'
+        -- * method: eg 'v' or 'o'
+        -- and should return the mode ('v', 'V', or '<c-v>') or a table
+        -- mapping query_strings to modes.
+        selection_modes = {
+            ['@parameter.outer'] = 'v', -- charwise
+            ['@function.outer'] = 'V',  -- linewise
+            -- ['@class.outer'] = '<c-v>', -- blockwise
+        },
+        -- If you set this to `true` (default is `false`) then any textobject is
+        -- extended to include preceding or succeeding whitespace. Succeeding
+        -- whitespace has priority in order to act similarly to eg the built-in
+        -- `ap`.
+        --
+        -- Can also be a function which gets passed a table with the keys
+        -- * query_string: eg '@function.inner'
+        -- * selection_mode: eg 'v'
+        -- and should return true of false
+        include_surrounding_whitespace = false,
+    },
+}
+
+-- treesitter keymaps
+-- You can use the capture groups defined in `textobjects.scm`
+local ts_select = require("nvim-treesitter-textobjects.select").select_textobject
+vim.keymap.set({ "x", "o" }, "af", function()
+    ts_select("@function.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "if", function()
+    ts_select("@function.inner", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ac", function()
+    ts_select("@class.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ic", function()
+    ts_select("@class.inner", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ai", function()
+    ts_select("@conditional.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ii", function()
+    ts_select("@conditional.inner", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "al", function()
+    ts_select("@loop.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "il", function()
+    ts_select("@loop.inner", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ab", function()
+    ts_select("@block.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ib", function()
+    ts_select("@block.inner", "textobjects")
+end)
 
 vim.cmd.colorscheme("moonfly")
 
@@ -79,6 +184,7 @@ vim.keymap.set("n", "<leader>fh", fzf.help_tags, { desc = "Help tags" })
 vim.keymap.set("n", "<S-h>", ":tabprevious<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<S-l>", ":tabnext<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<Leader>c", ":bd<CR>", { noremap = true, silent = true })
+
 
 -- Set common LSP configuration for all servers
 vim.lsp.config("*", {
