@@ -171,7 +171,12 @@ vim.keymap.set({ "x", "o" }, "ib", function()
     ts_select("@block.inner", "textobjects")
 end)
 
-vim.cmd.colorscheme("moonfly")
+vim.cmd.colorscheme("gruvbox")
+-- set transparency
+vim.cmd([[
+  highlight Normal guibg=NONE ctermbg=NONE
+  highlight NonText guibg=NONE ctermbg=NONE
+]])
 
 -- FZF-Lua keymaps
 local fzf = require("fzf-lua")
