@@ -1,9 +1,9 @@
 # NOTE: opacity requires compositor, e.g. picom
 [window]
-opacity = 0.95
+opacity = 0.90
 
 [font]
-size = 11.0
+size = 12.0
 
 [colors.primary]
 background = "#1d1f21"

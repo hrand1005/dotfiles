@@ -9,6 +9,8 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+# Mod1 is Alt (left)
+# Mod4 is super or windows key.
 set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
