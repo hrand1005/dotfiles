@@ -194,8 +194,16 @@ vim.keymap.set("n", "<Leader>c", ":bd<CR>", { noremap = true, silent = true })
 -- Set common LSP configuration for all servers
 vim.lsp.config("*", {
     root_markers = { ".git" },
-    on_attach = function(_, bufnr)
+    on_attach = function(client, bufnr)
         local opts = { noremap = true, silent = true, buffer = bufnr }
+
+        -- <C-n> / <C-p> — navigate down/up through suggestions
+        -- <CR> — confirm selection
+        -- <C-e> — dismiss the menu
+        -- <C-y> — accept the currently highlighted item
+        vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = false })
+        vim.keymap.set("i", "<C-Space>", function() vim.lsp.completion.get() end, opts)
+        -- vim.keymap.set("i", "<C-Space>", function() vim.lsp.completion.trigger() end, opts)
 
         -- Navigation
         vim.keymap.set("n", "gd", fzf.lsp_definitions, opts)
