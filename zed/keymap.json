@@ -1,21 +1,7 @@
-// Zed keymap
-//
-// For information on binding keys, see the Zed
-// documentation: https://zed.dev/docs/key-bindings
-//
-// To see the default key bindings run `zed: open default keymap`
-// from the command palette.
 [
-  {
-    "context": "Workspace",
-    "bindings": {
-      // "shift shift": "file_finder::Toggle"
-    },
-  },
   {
     "context": "Editor && vim_mode == insert",
     "bindings": {
-      // "j k": "vim::NormalBefore"
       "ctrl-v": "editor::Paste",
     },
   },
@@ -34,15 +20,21 @@
     },
   },
   {
-    "context": "vim_mode == literal",
+    "context": "(FileFinder || FileFinder > Picker > Editor) || FileFinder > Picker > menu",
     "bindings": {
-      "ctrl-l": null,
+      "ctrl-l": "pane::SplitRight",
+      "ctrl-h": "pane::SplitLeft",
+      "ctrl-j": "pane::SplitDown",
+      "ctrl-k": "pane::SplitUp",
     },
   },
   {
-    "context": "Editor",
+    "context": "VimControl && !menu",
     "bindings": {
-      "ctrl-l": null,
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
     },
   },
 ]
