@@ -10,14 +10,14 @@
     "context": "Workspace",
     "bindings": {
       // "shift shift": "file_finder::Toggle"
-    }
+    },
   },
   {
     "context": "Editor && vim_mode == insert",
     "bindings": {
       // "j k": "vim::NormalBefore"
-      "ctrl-v": "editor::Paste"
-    }
+      "ctrl-v": "editor::Paste",
+    },
   },
   {
     "context": "Editor && !menu",
@@ -27,10 +27,33 @@
       "ctrl-y": "editor::Undo", // vim default: line up
       "ctrl-s": "workspace::Save", // vim default: show signature
       "ctrl-a": "editor::SelectAll", // vim default: increment
-      "ctrl-b": "workspace::ToggleLeftDock" // vim default: down
+      "ctrl-b": "workspace::ToggleLeftDock", // vim default: down
       // DON'T USE THESE
       // "ctrl-f": "buffer_search::Deploy", // vim default: page down
       // "ctrl-o": "workspace::Open", // vim default: go back
-    }
-  }
+    },
+  },
+  {
+    "context": "vim_mode == literal",
+    "bindings": {
+      "ctrl-l": null,
+    },
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-l": null,
+    },
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "ctrl-w": [
+        "pane::CloseActiveItem",
+        {
+          "close_pinned": false,
+        },
+      ],
+    },
+  },
 ]
