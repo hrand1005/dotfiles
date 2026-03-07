@@ -6,6 +6,12 @@
     },
   },
   {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "space c": "pane::CloseActiveItem",
+    },
+  },
+  {
     "context": "Editor && !menu",
     "bindings": {
       "ctrl-c": "editor::Copy", // vim default: return to normal mode
@@ -35,6 +41,7 @@
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-w": "pane::CloseActiveItem",
     },
   },
 ]
