@@ -12,12 +12,9 @@
     "model_parameters": [],
   },
   "base_keymap": "VSCode",
-  "terminal": {
-    "dock": "right",
-  },
   "vim_mode": true,
   "ui_font_size": 16,
   "relative_line_numbers": "enabled",
   "buffer_font_size": 15,
-  "theme": "Catppuccin Mocha",
+  "theme": "Ayu Dark",
 }

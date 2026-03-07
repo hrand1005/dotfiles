@@ -45,15 +45,4 @@
       "ctrl-l": null,
     },
   },
-  {
-    "context": "Pane",
-    "bindings": {
-      "ctrl-w": [
-        "pane::CloseActiveItem",
-        {
-          "close_pinned": false,
-        },
-      ],
-    },
-  },
 ]
