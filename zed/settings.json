@@ -9,15 +9,15 @@
 {
   "agent": {
     "dock": "right",
-    "model_parameters": []
+    "model_parameters": [],
   },
   "base_keymap": "VSCode",
   "terminal": {
-    "dock": "right"
+    "dock": "right",
   },
   "vim_mode": true,
   "ui_font_size": 16,
-  "relative_line_numbers": true,
+  "relative_line_numbers": "enabled",
   "buffer_font_size": 15,
-  "theme": "Gruvbox Dark Hard"
+  "theme": "Gruvbox Dark Hard",
 }
