@@ -1,0 +1,31 @@
+include ~/.config/wm-shared-config
+
+# Wayland Launchers & Wallpaper
+bindsym $mod+d exec bemenu-run
+output * bg /home/rand/Pictures/mathias-konrath-Y7BG6yO9Q9o-unsplash.jpg fill
+
+# Input Config
+input "type:keyboard" {
+    xkb_layout "us"
+}
+
+# Audio (Wayland/Pipewire)
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+
+# Locking (Swayidle/Swaylock)
+exec swayidle -w \
+     timeout 300 'swaylock -f -c 000000' \
+     before-sleep 'swaylock -f -c 000000'
+
+# Session
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit Sway?' -b 'Yes' 'swaymsg exit'
+
+bar {
+    status_command i3status
+}
+
+input "type:keyboard" {
+    xkb_options caps:swapescape
+}
