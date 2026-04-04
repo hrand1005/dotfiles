@@ -35,6 +35,8 @@ vim.keymap.set("n", "<C-Down>", ":resize +2<CR>", { noremap = true, silent = tru
 vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { noremap = true, silent = true })
 
+vim.keymap.set("n", "<leader>p", vim.cmd.Ex);
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -188,7 +190,9 @@ vim.keymap.set("n", "<leader>fh", fzf.help_tags, { desc = "Help tags" })
 
 vim.keymap.set("n", "<S-h>", ":tabprevious<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<S-l>", ":tabnext<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<Leader>c", ":bd<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>c", ":bd<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader><", ":tabmove -1<CR>")
+vim.keymap.set("n", "<leader>>", ":tabmove +1<CR>")
 
 
 -- Set common LSP configuration for all servers
@@ -280,6 +284,14 @@ vim.lsp.config["ty"] = {
 }
 vim.lsp.enable("ty")
 
+-- C/C++ LSP support (clangd)
+vim.lsp.config('clangd', {
+  cmd = { 'clangd' },
+  filetypes = { 'c', 'cpp' },
+  root_markers = { 'compile_commands.json', 'Makefile' },
+})
+vim.lsp.enable("clangd")
+
 -- Terminal Shortcuts
 vim.keymap.set("n", "<leader>th", ":split | terminal<CR>",
     { noremap = true, silent = true, desc = "Open terminal horizontal split" })
@@ -287,3 +299,5 @@ vim.keymap.set("n", "<leader>tv", ":vsplit | terminal<CR>",
     { noremap = true, silent = true, desc = "Open terminal vertical split" })
 vim.keymap.set("n", "<leader>tt", ":tabnew | terminal<CR>",
     { noremap = true, silent = true, desc = "Open terminal in new tab" })
+
+
