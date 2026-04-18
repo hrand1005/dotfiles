@@ -1,0 +1,18 @@
+{
+    "workbench.colorTheme": "Ayu Dark Bordered",
+    "vim.handleKeys": {
+        "<C-d>": true,
+        "<C-p>": false,
+        "<C-b>": false,
+        "<C-k>": false,
+        "<C-c>": false,
+        "<C-u>": true,
+        "<C-v>": true,
+        "<C-x>": false,
+        "<C-X>": false,
+        "<C-a>": false,
+        "<C-f>": false,
+        "<C-h>": false,
+        "<C-w>": false
+    }
+}
